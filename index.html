@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Constitution of India (SEM-III) Quiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -109,7 +110,7 @@
             color: white !important;
         }
 
-        /* Safe Area Padding for Modern Phones */
+        /* Safe Area Padding for Modern Phones (iPhone X+) */
         .pb-safe {
             padding-bottom: env(safe-area-inset-bottom);
         }
@@ -172,31 +173,34 @@
                 </div>
             </div>
 
-            <div class="flex-1 overflow-y-auto px-6 py-4 scroll-smooth pb-24" id="question-scroll-area">
-                <div class="slide-in pb-12">
+            <div class="flex-1 overflow-y-auto px-6 py-4 scroll-smooth pb-32" id="question-scroll-area">
+                <div class="slide-in">
                     <h2 id="question-text" class="text-lg md:text-xl font-semibold text-gray-800 leading-relaxed mb-6">
                         Loading Question...
                     </h2>
 
-                    <div id="options-container" class="space-y-3 mb-8">
+                    <div id="options-container" class="space-y-3 mb-4">
                     </div>
 
                     <div id="feedback-msg"
                         class="hidden mb-6 p-3 rounded-lg text-sm font-semibold text-center animate-bounce"></div>
+                </div>
+            </div>
 
-                    <div class="flex gap-3 pb-safe">
-                        <button onclick="prevQuestion()" id="prev-btn" disabled
-                            class="flex-1 py-3.5 rounded-xl font-semibold text-gray-500 bg-gray-100 border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition active:scale-95 flex justify-center items-center gap-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200">
-                            <i class="fas fa-arrow-left text-sm"></i>
-                            <span class="hidden md:inline">Previous</span>
-                            <span class="md:hidden">Prev</span>
-                        </button>
+            <div
+                class="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-100 p-4 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.08)] z-30 md:rounded-b-xl">
+                <div class="flex gap-3 max-w-3xl mx-auto">
+                    <button onclick="prevQuestion()" id="prev-btn" disabled
+                        class="flex-1 py-3.5 rounded-xl font-semibold text-gray-500 bg-gray-100 border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition active:scale-95 flex justify-center items-center gap-2 hover:bg-gray-200 focus:outline-none">
+                        <i class="fas fa-arrow-left text-sm"></i>
+                        <span class="hidden md:inline">Previous</span>
+                        <span class="md:hidden">Prev</span>
+                    </button>
 
-                        <button onclick="nextQuestion()" id="next-btn"
-                            class="flex-[3] py-3.5 rounded-xl font-bold text-white bg-indigo-600 shadow-lg shadow-indigo-200 active:scale-95 transition flex items-center justify-center gap-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500">
-                            Next <i class="fas fa-arrow-right text-sm"></i>
-                        </button>
-                    </div>
+                    <button onclick="nextQuestion()" id="next-btn"
+                        class="flex-[3] py-3.5 rounded-xl font-bold text-white bg-indigo-600 shadow-lg shadow-indigo-200 active:scale-95 transition flex items-center justify-center gap-2 hover:bg-indigo-700 focus:outline-none">
+                        Next <i class="fas fa-arrow-right text-sm"></i>
+                    </button>
                 </div>
             </div>
 
