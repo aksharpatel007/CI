@@ -1,50 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Constitution of India (SEM-III) Quiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         /* Animations */
-        .fade-in { animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .slide-in { animation: slideIn 0.3s ease-out; }
-        @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
         /* Quiz Option Styles */
-        .option-card { transition: all 0.2s; cursor: pointer; }
-        
-        /* Default Hover (Only when not answered) */
-        .hover-active:hover { border-color: #6366f1; background-color: #f5f7ff; }
-        .hover-active:active { transform: scale(0.99); }
+        .option-card {
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        /* Hover Effects (Desktop only to prevent sticky hover on mobile) */
+        @media (hover: hover) {
+            .hover-active:hover {
+                border-color: #6366f1;
+                background-color: #f5f7ff;
+            }
+        }
+
+        .hover-active:active {
+            transform: scale(0.99);
+        }
 
         /* Status Classes */
-        .status-correct { background-color: #dcfce7 !important; border-color: #22c55e !important; color: #14532d !important; }
-        .status-wrong { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #7f1d1d !important; }
-        .status-dimmed { opacity: 0.5; background-color: #f9fafb; border-color: #e5e7eb; cursor: default !important; }
-        
-        /* Icon Colors */
-        .icon-correct { background-color: #16a34a !important; border-color: #16a34a !important; color: white !important; }
-        .icon-wrong { background-color: #dc2626 !important; border-color: #dc2626 !important; color: white !important; }
+        .status-correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #14532d !important;
+        }
 
+        .status-wrong {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #7f1d1d !important;
+        }
+
+        .status-dimmed {
+            opacity: 0.5;
+            background-color: #f9fafb;
+            border-color: #e5e7eb;
+            cursor: default !important;
+        }
+
+        /* Icon Colors */
+        .icon-correct {
+            background-color: #16a34a !important;
+            border-color: #16a34a !important;
+            color: white !important;
+        }
+
+        .icon-wrong {
+            background-color: #dc2626 !important;
+            border-color: #dc2626 !important;
+            color: white !important;
+        }
+
+        /* Safe Area for Mobile Bottom Bars */
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
     </style>
 </head>
+
 <body class="bg-gray-50 text-gray-800 h-screen flex flex-col overflow-hidden select-none">
 
-    <header class="bg-white shadow-sm z-20 relative">
+    <header class="bg-white shadow-sm z-30 relative flex-shrink-0">
         <div class="max-w-3xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3" onclick="goHome()" style="cursor: pointer;">
-                <div class="bg-indigo-600 text-white p-2 rounded-lg">
+                <div class="bg-indigo-600 text-white p-2 rounded-lg shadow-md shadow-indigo-200">
                     <i class="fas fa-balance-scale"></i>
                 </div>
                 <div>
@@ -52,16 +129,18 @@
                     <p class="text-xs text-gray-500 font-medium">Question Bank (SEM-III)</p>
                 </div>
             </div>
-            <button id="exit-btn" onclick="goHome()" class="hidden bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1 border border-red-200">
+            <button id="exit-btn" onclick="goHome()"
+                class="hidden bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1 border border-red-200">
                 <i class="fas fa-times"></i> Exit
             </button>
         </div>
     </header>
 
-    <main class="flex-1 overflow-y-auto relative w-full max-w-3xl mx-auto scroll-smooth" id="main-container">
-        
-        <div id="dashboard" class="p-4 fade-in pb-24">
-            <div class="bg-gradient-to-r from-indigo-600 to-indigo-800 rounded-2xl p-6 text-white shadow-lg mb-6 relative overflow-hidden">
+    <main class="flex-1 overflow-hidden relative w-full max-w-3xl mx-auto flex flex-col" id="main-container">
+
+        <div id="dashboard" class="p-4 fade-in pb-24 overflow-y-auto h-full w-full">
+            <div
+                class="bg-gradient-to-r from-indigo-600 to-indigo-800 rounded-2xl p-6 text-white shadow-lg mb-6 relative overflow-hidden">
                 <div class="relative z-10">
                     <h2 class="text-2xl font-bold mb-1">Let's Practice!</h2>
                     <p class="text-indigo-100 text-sm">Select a Unit below to start the quiz.</p>
@@ -71,53 +150,68 @@
 
             <div class="flex items-center justify-between mb-4 px-1">
                 <h3 class="font-bold text-gray-800 text-lg">Chapters (Units)</h3>
-                <span class="text-xs font-medium text-gray-500 bg-gray-200 px-2 py-1 rounded-full" id="total-q-badge">Loading...</span>
+                <span class="text-xs font-medium text-gray-500 bg-gray-200 px-2 py-1 rounded-full"
+                    id="total-q-badge">Loading...</span>
             </div>
 
             <div id="unit-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                </div>
+            </div>
         </div>
 
-        <div id="quiz-screen" class="hidden h-full flex flex-col bg-white md:bg-gray-50">
-            <div class="px-6 pt-6 pb-2 bg-white md:rounded-t-xl z-10 sticky top-0 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.02)]">
+        <div id="quiz-screen" class="hidden h-full flex flex-col bg-white md:bg-gray-50 w-full">
+
+            <div
+                class="px-6 pt-6 pb-2 bg-white md:rounded-t-xl z-20 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.02)] flex-shrink-0">
                 <div class="flex justify-between items-end mb-2">
                     <span class="text-2xl font-bold text-indigo-600" id="q-number">01</span>
-                    <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">Question <span id="q-current">1</span>/<span id="q-total">10</span></span>
+                    <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">Question <span
+                            id="q-current">1</span>/<span id="q-total">10</span></span>
                 </div>
                 <div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
                     <div id="progress-bar" class="h-full bg-indigo-600 transition-all duration-300 w-0"></div>
                 </div>
             </div>
 
-            <div class="flex-1 overflow-y-auto px-6 py-4" id="question-scroll-area">
-                <div class="slide-in">
-                    <h2 id="question-text" class="text-lg font-semibold text-gray-800 leading-relaxed mb-6">
+            <div class="flex-1 overflow-y-auto px-6 py-4 scroll-smooth" id="question-scroll-area">
+                <div class="slide-in pb-4">
+                    <h2 id="question-text" class="text-lg md:text-xl font-semibold text-gray-800 leading-relaxed mb-6">
                         Loading Question...
                     </h2>
 
-                    <div id="options-container" class="space-y-3 pb-6">
-                        </div>
-                    
-                    <div id="feedback-msg" class="hidden mt-2 p-3 rounded-lg text-sm font-semibold text-center animate-bounce"></div>
+                    <div id="options-container" class="space-y-3">
+                    </div>
+
+                    <div id="feedback-msg"
+                        class="hidden mt-4 p-3 rounded-lg text-sm font-semibold text-center animate-bounce"></div>
                 </div>
             </div>
 
-            <div class="p-4 bg-white border-t border-gray-100 flex gap-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
-                <button onclick="prevQuestion()" id="prev-btn" disabled class="flex-1 py-3.5 rounded-xl font-semibold text-gray-500 bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition active:scale-95 flex justify-center items-center gap-2">
-                    <i class="fas fa-arrow-left"></i> Prev
-                </button>
-                <button onclick="nextQuestion()" id="next-btn" class="flex-[3] py-3.5 rounded-xl font-bold text-white bg-indigo-600 shadow-lg shadow-indigo-200 active:scale-95 transition flex items-center justify-center gap-2 hover:bg-indigo-700">
-                    Next <i class="fas fa-arrow-right"></i>
-                </button>
+            <div
+                class="bg-white border-t border-gray-100 p-4 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-30 flex-shrink-0 md:rounded-b-xl">
+                <div class="flex gap-3 max-w-3xl mx-auto">
+                    <button onclick="prevQuestion()" id="prev-btn" disabled
+                        class="flex-1 py-3.5 rounded-xl font-semibold text-gray-500 bg-gray-100 border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition active:scale-95 flex justify-center items-center gap-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200">
+                        <i class="fas fa-arrow-left text-sm"></i>
+                        <span class="hidden md:inline">Previous</span>
+                        <span class="md:hidden">Prev</span>
+                    </button>
+
+                    <button onclick="nextQuestion()" id="next-btn"
+                        class="flex-[3] py-3.5 rounded-xl font-bold text-white bg-indigo-600 shadow-lg shadow-indigo-200 active:scale-95 transition flex items-center justify-center gap-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500">
+                        Next <i class="fas fa-arrow-right text-sm"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div id="result-screen" class="hidden p-6 fade-in h-full flex flex-col justify-center items-center bg-gray-50">
-            <div class="bg-white p-8 rounded-3xl shadow-xl w-full max-w-sm text-center border border-gray-100">
-                <div class="w-20 h-20 bg-gradient-to-tr from-green-400 to-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-green-200 shadow-lg">
+        <div id="result-screen"
+            class="hidden p-6 fade-in h-full flex flex-col justify-center items-center bg-gray-50 overflow-y-auto">
+            <div class="bg-white p-8 rounded-3xl shadow-xl w-full max-w-sm text-center border border-gray-100 my-auto">
+                <div
+                    class="w-20 h-20 bg-gradient-to-tr from-green-400 to-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-green-200 shadow-lg animate-bounce">
                     <i class="fas fa-check text-4xl"></i>
                 </div>
-                
+
                 <h2 class="text-2xl font-bold text-gray-800 mb-1">Quiz Completed!</h2>
                 <p class="text-gray-500 text-sm mb-8">You have finished this unit.</p>
 
@@ -133,10 +227,12 @@
                 </div>
 
                 <div class="flex flex-col gap-3">
-                    <button onclick="restartUnit()" class="w-full bg-indigo-50 text-indigo-700 font-bold py-3.5 rounded-xl hover:bg-indigo-100 transition">
+                    <button onclick="restartUnit()"
+                        class="w-full bg-indigo-50 text-indigo-700 font-bold py-3.5 rounded-xl hover:bg-indigo-100 transition border border-indigo-100">
                         <i class="fas fa-redo-alt mr-2"></i> Retry Unit
                     </button>
-                    <button onclick="goHome()" class="w-full bg-gray-800 text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-gray-900 transition">
+                    <button onclick="goHome()"
+                        class="w-full bg-gray-800 text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-gray-900 transition">
                         Back to Dashboard
                     </button>
                 </div>
@@ -146,7 +242,10 @@
     </main>
 
     <script>
-        // --- 1. DATA PRE-LOADING ---
+        // --- 1. DATA PRE-LOADING (CSV Data) ---
+        // Note: Paste your full CSV data here inside the backticks.
+        // For brevity in the code block, I will use a truncated version, 
+        // but you should use the FULL CSV provided in previous responses.
         const rawCSVData = `Sr,Unit,Q,A,M,Op1,Op2,Op3,Op4
 1,1,"Under which Act, the provision for establishment of Supreme court at Calcutta was made?",a,1,"Regulating Act, 1773","Pitt’s India Act, 1784","Charter Act, 1833","Government of India Act, 1858"
 2,1,Which Act provided for the establishment of Public Service Commission?,c,1,"Government of India Act, 1858","Indian Council Act, 1909","Government of India Act, 1919","Government of India Act, 1935"
@@ -225,7 +324,7 @@
 75,2,Who among the following is known as the Father of the Indian Constitution?,a,1,Dr. B.R. Ambedkar,Mahatma Gandhi,Jawaharlal Nehru,Vallabhbhai PateI
 76,2,Who proposed the Preamble before the Drafting Committee of the Constitution?,a,1,Jawaharlal Nehru,B.R. Ambedkar,B.N. Rao,Mahatma Gandhi
 77,2,The first session of the Constituent Assembly was held in,d,1,Bombay,Calcutta,Lahore,New Delhi
-78,2,"Consider the following statements: 1. The Parliament is empowered to alter the boundaries of any existing State of India. 2. A Bill pertaining to the alteration of the boundaries of any existing State of India can be introduced only in the Rajya Sabha and only on the recommendation of the President of India. Which one of the statements given above is/are correct?",a,1,Only 1,Only 2,Both 1 and 2,Neither 1  nor 2
+78,2,"Consider the following statements: 1. The Parliament is empowered to alter the boundaries of any existing State of India. 2. A Bill pertaining to the alteration of the boundaries of any existing State of India can be introduced only in the Rajya Sabha and only on the recommendation of the President of India. Which one of the statements given above is/are correct?",a,1,Only 1,Only 2,Both 1 and 2,Neither 1  nor 2
 79,2,"Consider the following with respect to the Union of India: 1. Formation of the State of Nagaland. 2. States Reorganisation Act. 3. Formation of the State of Haryana. 4. Formation of the State of Gujarat. Which one of the following is the correct chronological order of the above?",d,1,4-2-3-1,2-4-3-1,4-2-1-3,2-4-1-3
 80,2,"The boundary of a State in India can be altered through the procedure laid down in:",d,1,Article 368,Article 130,Article 70,Article 3
 81,2,"In 1953, Prime Minister Jawaharlal Nehru announced the formation of a Commission to study the reorganization of states on a linguistic basis under the chairmanship of:",c,1,T.T. Krishnamachari,Vallabhbhai Patel,Fazl Ali,G.B. Pant
@@ -233,15 +332,15 @@
 83,2,The States of the Indian Union can be reorganised or their boundaries altered by:,a,1,The Union Parliament by a simple majority in the ordinary process of legislation.,Two-thirds majority of both the Houses of Parliament.,"Two-thirds majority of both the Houses of Parliament and the consent of the legislature of the concerned States.","An executive order of the Union Government with the consent of the concerned State Governments."
 84,2,"The Constitution of India divided the states of India in categories A, B, C and D in the year 1950. In this context which of the following statements is correct?",c,1,"The Chief Commissioner was the executive head of category A states. The Rajpramukh was the executive head of category B states. The Governor was the executive head of categories C and D states.","The Rajpramukh was the executive head of category A states. The Chief Commissioner was the executive head of categories B and C states. The Governor was the executive head of the category D states.","The Governor was the executive head of category A states. The Rajpramukh was the executive head of category B states. The Chief Commissioner was the executive head of categories C and D states.","The Governor was the executive head of category A states. The Chief Commissioner was the executive head of category B states. The Rajpramukh was the executive head of categories C and D states."
 85,2,"Who among the following was the head of the Linguistic Provinces Commission appointed in the year 1948, to enquire into the desirability of linguistic provinces?",b,1,Jawaharlal Nehru,Justice S.K. Dhar,Justice Fazl Ali,Pattabhi Sitaramayya
-86,2,"What is the correct chronological order in which the following States of the Indian Union were created or granted full statehood? 1. Andhra Pradesh    2. Nagaland 3. Maharashtra            4. Haryana Select the correct answer using the codes given below:",c,1,1-3-4-2,3-1-2-4,1-3-2-4,3-1-4-2
+86,2,"What is the correct chronological order in which the following States of the Indian Union were created or granted full statehood? 1. Andhra Pradesh    2. Nagaland 3. Maharashtra            4. Haryana Select the correct answer using the codes given below:",c,1,1-3-4-2,3-1-2-4,1-3-2-4,3-1-4-2
 87,2,"Who, among the following, was not a member of the States Reorganisation Commission (SRC) appointed by Pandit Jawaharlal Nehru ?",b,1,Justice Fazl Ali,Potti Sriramulu,K.M. Panikkar,Hridayanath Kunzru
 88,2,"Consider the following statements with reference to the linguistic reorganisation of states in independent India: 1. The separate state of Andhra for the Telugu people came into existence in 1953. 2. Jawaharlal Nehru was particularly in favour of the movement for linguistic reorganisation of states that came in the wake of the success of the Andhra movement. Which one of the statements given above is/are correct?",a,1,Only 1,Only 2,Both 1 and 2,Neither 1 nor 2
 89,2,Who among the following was not a member of the Constituent Assembly?,c,1,Sardar Vallabhbhai Patel,Acharya J.B. Kriplani,"Lok Nayak Jayprakash Narayan",K.M. Munshi
 90,2,"The first effort at drafting a Dominion Status Constitution for India was made in response to the",c,1,Minto-Morley Reforms,"Montague-Chelmsford Reforms",Simon Commission,First Round Table Conference
 91,2,"Consider the following statements: 1. A person who was born on 26th January, 1951 in Rangoon, whose father was a citizen of India by birth at the time of his birth, is deemed to be an Indian citizen by descent. 2. A person who was born on 1st July, 1988 in Itanagar, whose mother is a citizen of India at the time of his birth but the father was not, is deemed to be a citizen of India by birth. Which one of the statements given above is/are correct?",c,1,Only 1,Only 2,Both 1 and 2,Neither 1 nor 2
-92,2,"Under the Citizenship Act, 1955, by which of the following ways can a person become a citizen of India? 1. By birth         2. By descent 3. By registration      4. By nationalisation 5. By incorporation of territory Select the correct answer using the codes given below:",c,1,"1, 2, 3, 4 and 5",1 and 2,"1, 2, 3 and 5","3, 4 and 5"
+92,2,"Under the Citizenship Act, 1955, by which of the following ways can a person become a citizen of India? 1. By birth         2. By descent 3. By registration      4. By nationalisation 5. By incorporation of territory Select the correct answer using the codes given below:",c,1,"1, 2, 3, 4 and 5",1 and 2,"1, 2, 3 and 5","3, 4 and 5"
 93,2,"Which of the following Articles of the Indian Constitution deal with citizenship in India?",c,1,Articles 333 to 337,Articles 17 to 20,Articles 5 to 11,Articles 1 to 4
-94,2,"In which of the following years, the Citizenship Act, 1955 has been amended? 1. 1986            2. 1992 3. 2003          4. 2005 Select the correct answer using the codes given below:",c,1,"2, 3 and 4","1, 2 and 4","1, 2, 3 and 4","1, 2 and 3"
+94,2,"In which of the following years, the Citizenship Act, 1955 has been amended? 1. 1986            2. 1992 3. 2003          4. 2005 Select the correct answer using the codes given below:",c,1,"2, 3 and 4","1, 2 and 4","1, 2, 3 and 4","1, 2 and 3"
 95,2,"Which Article of the Constitution of India deals with the rights of citizenship of certain persons of Indian origin residing outside India?",c,1,Article 7,Article 10,Article 8,Article 9
 96,2,"Which one among the following has the power to regulate the right of citizenship in India?",b,1,The Union Cabinet,The Parliament,The Supreme Court,The Law Commission
 97,2,"In which Part of the Constitution, details of citizenship are mentioned?",b,1,Part I,Part II,Part III,Part IV
@@ -282,7 +381,7 @@
 132,3,"In which part of the Indian Constitution, the Fundamental rights are provided?",b,1,Part II,Part III,Part V,Part IV
 133,3,Which of the following articles guarantees equality before law and equal protection of law for all individuals residing within the territory of India?,b,1,15,14,17,18
 134,3,Which article of the Constitution abolishes Untouchability?,d,1,Article 18,Article 15,Article 14,Article 17
-135,3,Which of the following is correct with respect to “Right against exploitation”?,a,1,Prohibition of traffic in human beings and forced labour,Freedom as to payment of taxes for the promotion of any particular religion,Protection of  interests of minorities,Equality before law
+135,3,Which of the following is correct with respect to “Right against exploitation”?,a,1,Prohibition of traffic in human beings and forced labour,Freedom as to payment of taxes for the promotion of any particular religion,Protection of  interests of minorities,Equality before law
 136,3,"Which one of the following right of Indian Constitution guarantees all the fundamental rights to every resident of a country?",d,1,Right against exploitation,Right to freedom,Right to equality,"Right to constitutional remedies"
 137,3,"Which one of the following is true with respect to the Fundamental Rights of Indian Constitution?",b,1,"The sovereignty of the people","Equality of opportunity for all resident",Limited government,Democracy
 138,3,"B. R. Ambedkar termed Article 32 of the Indian Constitution as the “Heart and Soul of the Indian Constitution”. Which one of the following fundamental right it contains ?",b,1,Right to freedom,Right to constitutional remedies,Right to elementary education,Right to freedom of religion
@@ -319,7 +418,7 @@
 169,3,Which one of the followings has been wrongly listed as a Fundamental duty of the Indian citizens?,b,1,"To develop scientific temper, humanism and spirit of inquiry and reform.",To work for raising the prestige of the country in the international sphere.,To protect and improve the natural environment.,To strive towards excellence in all spheres of individual and collective activity.
 170,3,The Fundamental duties were added to the Constitution,b,1,To make the Fundamental Rights more effective.,"To check anti- national, subversive and unconstitutional agitations.",To accord priority to the directive principles over fundamental rights .,To achieve all the above objectives.
 171,4,"Assertion (A): Article 14 of the Indian Constitution does not lay down that all laws must be of universal application. Reason (R): State has power to classify persons for legitimate purpose and on reasonable grounds.",d,1,Both A and R are individually true and R is the correct explanation of A,Both A and R are individually true but R is not the correct explanation of A,A is true but R is false,A is false but R is true
-172,4,"Which of the following are the grounds on which discrimination of citizens for admission into educational institutions is constitutionally prohibited? 1. Religion and Race 2. Sex and Place of birth 3. Nationality and Colour      4. Age and Nativity Choose the correct answer from the codes given below:",b,1,"1, 2, 3 and 4",1 and 2,"1, 2 and 3","1, 2 and 4"
+172,4,"Which of the following are the grounds on which discrimination of citizens for admission into educational institutions is constitutionally prohibited? 1. Religion and Race 2. Sex and Place of birth 3. Nationality and Colour      4. Age and Nativity Choose the correct answer from the codes given below:",b,1,"1, 2, 3 and 4",1 and 2,"1, 2 and 3","1, 2 and 4"
 173,4,"Through which provisions does the Constitution of India explicitly prohibits racial discrimination in India?",c,1,Articles 14 and 17,Articles 17 and 23,Articles 15 and 16,Article 17 only
 174,4,"Reservation of seats in educational institutions in favour of Scheduled Castes and Scheduled Tribes is governed by:",a,1,Article 15 of the Constitution,Article 16 of the Constitution,Article 29 of the Constitution,Article 14 of the Constitution
 175,4,"Which one of the following is the best justification for the affirmative action policies in India?",b,1,"The principle of non- discrimination","The principle of equal opportunity","The principle of group disadvantage","The principle of radical redistribution"
@@ -427,7 +526,7 @@
 277,6,A Constitutional amendment shall also be ratified by legislatures of not less than one-half of the States by a resolution if it is meant to make any change in:,d,1,Fundamental Rights,Directive Principles,Fundamental Duties,High Court Provisions
 278,6,An amendment of the Constitution of India for the purpose of creating a new state must be passed by:,a,1,Simple majority in Parliament,A simple majority in Parliament and ratification by not less than half of the states,Two-thirds majority in Parliament and ratification by not less than two-third of the states,Two-third of the members of both houses of Parliament present and voting
 279,6,The provision of Article 368 of the Constitution of India deals with:,c,1,Power of Parliament to amend the Constitution,Procedure for amendment of the constitution to be followed by Parliament,Power as well as procedure for amendment of the Constitution,Passing and ratification of amendment Bills by State Legislatures
-280,6,"How can an amendment in a list in the Seventh Schedule of the Constitution of India be initiated? If the Bill seeking amendment is passed in either House of Parliament or joint sitting of theHouse in the first instance, but shall have and exercise a casting vote in the case of an equalityof votes. 2. A person is qualified to fill a seat in the Council of States or House of the People if he is notless than twenty-five years of age.. Which of the statements given above is/are correct?",a,1,Only 1,Only 2,Both 1 and 2,Neither 1 nor 2
+280,6,"How can an amendment in a list in the Seventh Schedule of the Constitution of India be initiated? If the Bill seeking amendment is passed in either House of Parliament by:",c,1,A majority of the total membership of that house.,"A majority of the total membership of that house and by a majority of not less than two-thirds of the members of that House present and voting.","A majority of the total membership of that house and by a majority of not less than two-thirds of the members of that House present and voting and the amendment shall also requires to be ratified by the Legislatures of not less than one-half of the States.","A majority of the total membership of that house and by a majority of not less than two-thirds of the members of that House present and voting and the amendment shall also requires to be ratified by the Legislatures of not less than two-thirds of the States."
 281,6,Amendment of which one of the following provisions of the Constitution requires ratification by the Legislatures of the States?,d,1,Article 157 relating to the qualifications for appointment as Governor of the State,"Article 123 relating to the powers of the President to promulgate ordinances on a subject mentioned in Concurrent List during the recess of the Parliament",Article 56 relating to the term of the office of the President,Article 54 relating to the election of the President
 282,6,"Consider the following statements related to Article 368 of the Constitution: 1. A Constitutional Amendment Bill can be passed at a joint session of Parliament in case ofdeadlock between the two Houses. 2. It is obligatory for the President of India to give his assent to a Constitutional Amendment Bill passed under Article 368. 3. To amend 7th Schedule of the Constitution, ratification of more than half of the State legislatures is essential. 4. A proposal to amend the Constitution can only be introduced in the House of the People. Which of these are correct?",c,1,1 and 2,1 and 3,2 and 3,"1, 2 and 3"
 283,6,How many methods are there to amend the Constitution of India,c,1,5,4,3,2
@@ -489,9 +588,9 @@
 339,7,The Union List includes subjects such as:,d,1,"Education, forests, trade unions, marriages, adoption and succession.","Police, trade, commerce, agriculture and irrigation.",Residuary subjects like computer software.,"Defence, foreign affairs, banking, currency, communications."
 340,7,Here are three reactions to the language policy followed in India. Which of the following holds true in the case of India?,a,1,The policy of accommodation has strengthened national unity.,Language based states have divided us by making everyone conscious of their language.,The language policy has only helped to consolidate the dominance of English over all other languages.,None of the above
 341,7,How many levels of government does a federation usually have?,b,1,Single,Two,Three,Multiple
-342,7,"In a federal system, the central government           order the state government to do something?",b,1,Can,Cannot,May,A & C
+342,7,"In a federal system, the central government           order the state government to do something?",b,1,Can,Cannot,May,A & C
 343,7,State government has powers of its own for which……..,d,1,"It is answerable to Central government","It is not answerable to Central government",It is answerable to the people,B & C
-344,7,"Different tiers of government govern the same citizens, but each tier has its own …           in specific matters.",b,1,Administration,Jurisdiction,Execution,Policies
+344,7,"Different tiers of government govern the same citizens, but each tier has its own …           in specific matters.",b,1,Administration,Jurisdiction,Execution,Policies
 345,8,"Consider the following statements: 1. A Bill pending in the Rajya Sabha which has not been passed by the Lok Sabha shall lapse on dissolution of the Lok Sabha. 2. A Bill pending in Parliament shall lapse by reason of the prorogation of the Houses. Which of the statements given above is / are correct?",d,1,Only 1,Only 2,Both 1 and 2,Neither 1 nor 2
 346,8,"Consider the following statements: 1. The Chairman of the Council of States or Speaker of the House of the People, or personacting as such, shall not vote at any sitting of either House of Parliament or joint sitting of theHouse in the first instance, but shall have and exercise a casting vote in the case of an equalityof votes. 2. A person is qualified to fill a seat in the Council of States or House of the People if he is notless than twenty-five years of age.. Which of the statements given above is/are correct?",a,1,Only 1,Only 2,Both 1 and 2,Neither 1 nor 2
 347,8,"Consider the following statements: 1. Since the sums required to meet expenditure described by the Constitution of India asexpenditure charged upon the Consolidated Fund of India are not submitted to the vote of Parliament, no House is competent to discuss these estimates. 2. Annual Finance Bill provides the legal authority for the withdrawal of sums from theConsolidated Fund of India. Which of the statement(s) given above is/are correct?",d,1,Only 1,Only 2,Both 1 and 2,Neither 1 nor 2
@@ -608,7 +707,7 @@
 458,9,Under which Article of the Constitution emergency can be declared?,c,1,Article 350,Article 355,Article 356,Article 359
 459,9,"The proclaimation of national emergencies ceases to operate unless approved by Parliament within",c,1,three months,six months,one month,two months
 460,9,Which article deals with emergency to be imposed due to external aggression?,a,1,352,356,366,368
-461,9,"At the time of proclamation of Emergency, the terms of Lok Sabha can be extended by        year at a time?",a,1,one,two,three,can not be extended
+461,9,"At the time of proclamation of Emergency, the terms of Lok Sabha can be extended by        year at a time?",a,1,one,two,three,can not be extended
 462,9,How many types of emergencies have been envisaged by the Constitution?,b,1,4,3,2,1
 463,9,The emergency in a state is declared if there is a complete breakdown of the administrative machinery in the state or if the government of the state cannot be carried on in accordance with the provisions of the Constitution under,c,1,Article 350,Article 357,Article 356,Article 360
 464,9,The maximum period of Emergency as per Article 356 can be,d,1,6 months,12 months,24 months,36 months
@@ -656,14 +755,13 @@
         let currentQuestions = [];
         let currentQuestionIndex = 0;
         let userAnswers = {}; // { questionIndex: 'a' }
-        let score = 0;
 
-        // --- 2. CSV PARSER (Robust) ---
+        // --- 2. CSV PARSER ---
         function parseAndLoad() {
             const lines = [];
             let currentLine = '';
             let inQuotes = false;
-            
+
             for (let i = 0; i < rawCSVData.length; i++) {
                 const char = rawCSVData[i];
                 if (char === '"') { inQuotes = !inQuotes; }
@@ -674,18 +772,18 @@
                     currentLine += char;
                 }
             }
-            if(currentLine) lines.push(currentLine);
+            if (currentLine) lines.push(currentLine);
 
-            for(let i=1; i<lines.length; i++) {
+            for (let i = 1; i < lines.length; i++) {
                 const row = [];
                 let cell = '';
                 let inQ = false;
                 const line = lines[i];
-                
-                for(let j=0; j<line.length; j++){
+
+                for (let j = 0; j < line.length; j++) {
                     const c = line[j];
-                    if(c === '"') { inQ = !inQ; continue; }
-                    if(c === ',' && !inQ) {
+                    if (c === '"') { inQ = !inQ; continue; }
+                    if (c === ',' && !inQ) {
                         row.push(cell.trim());
                         cell = '';
                     } else {
@@ -694,11 +792,11 @@
                 }
                 row.push(cell.trim());
 
-                if(row.length < 6) continue;
+                if (row.length < 6) continue;
 
                 const unit = row[1];
-                if(!units[unit]) units[unit] = [];
-                
+                if (!units[unit]) units[unit] = [];
+
                 units[unit].push({
                     q: row[2],
                     a: row[3].toLowerCase(),
@@ -714,9 +812,9 @@
             const grid = document.getElementById('unit-grid');
             const totalQ = Object.values(units).flat().length;
             document.getElementById('total-q-badge').innerText = totalQ + " Questions";
-            
-            const sortedUnits = Object.keys(units).sort((a,b) => parseInt(a) - parseInt(b));
-            
+
+            const sortedUnits = Object.keys(units).sort((a, b) => parseInt(a) - parseInt(b));
+
             grid.innerHTML = sortedUnits.map(u => `
                 <div onclick="startQuiz('${u}')" class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:border-indigo-500 hover:shadow-md transition cursor-pointer flex justify-between items-center group">
                     <div class="flex items-center gap-4">
@@ -738,7 +836,6 @@
             currentQuestions = units[unitId];
             currentQuestionIndex = 0;
             userAnswers = {};
-            score = 0;
 
             document.getElementById('dashboard').classList.add('hidden');
             document.getElementById('result-screen').classList.add('hidden');
@@ -758,7 +855,7 @@
             document.getElementById('q-current').innerText = currentQuestionIndex + 1;
             document.getElementById('q-total').innerText = currentQuestions.length;
             document.getElementById('q-number').innerText = (currentQuestionIndex + 1).toString().padStart(2, '0');
-            
+
             const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
             document.getElementById('progress-bar').style.width = `${progress}%`;
 
@@ -770,21 +867,21 @@
             if (isAnswered) {
                 feedbackMsg.classList.remove('hidden');
                 if (selectedKey === correctKey) {
-                    feedbackMsg.className = "mt-2 p-2 rounded-lg text-sm font-bold text-green-700 bg-green-50 animate-bounce";
-                    feedbackMsg.innerHTML = '<i class="fas fa-check-circle mr-1"></i> Correct Answer!';
+                    feedbackMsg.className = "mt-4 p-3 rounded-lg text-sm font-bold text-green-700 bg-green-50 border border-green-200 animate-bounce";
+                    feedbackMsg.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Correct Answer!';
                 } else {
-                    feedbackMsg.className = "mt-2 p-2 rounded-lg text-sm font-bold text-red-700 bg-red-50 animate-bounce";
-                    feedbackMsg.innerHTML = '<i class="fas fa-times-circle mr-1"></i> Wrong Answer!';
+                    feedbackMsg.className = "mt-4 p-3 rounded-lg text-sm font-bold text-red-700 bg-red-50 border border-red-200 animate-bounce";
+                    feedbackMsg.innerHTML = '<i class="fas fa-times-circle mr-2"></i> Wrong Answer!';
                 }
             } else {
                 feedbackMsg.classList.add('hidden');
             }
 
-            // BUTTON LOGIC START
+            // --- RESPONSIVE BUTTON LOGIC START ---
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
 
-            // Handle Prev Button
+            // Handle Prev Button State
             if (currentQuestionIndex === 0) {
                 prevBtn.disabled = true;
                 prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
@@ -797,50 +894,44 @@
             if (currentQuestionIndex === currentQuestions.length - 1) {
                 nextBtn.innerHTML = 'Finish <i class="fas fa-flag-checkered ml-2"></i>';
                 nextBtn.onclick = finishQuiz;
-                nextBtn.classList.replace('bg-indigo-600', 'bg-green-600');
-                nextBtn.classList.replace('hover:bg-indigo-700', 'hover:bg-green-700');
-                nextBtn.classList.replace('shadow-indigo-200', 'shadow-green-200');
+                // Styling for Finish
+                nextBtn.className = "flex-[3] py-3.5 rounded-xl font-bold text-white bg-green-600 shadow-lg shadow-green-200 active:scale-95 transition flex items-center justify-center gap-2 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green-500";
             } else {
                 nextBtn.innerHTML = 'Next <i class="fas fa-arrow-right ml-2"></i>';
                 nextBtn.onclick = nextQuestion;
-                nextBtn.classList.replace('bg-green-600', 'bg-indigo-600');
-                nextBtn.classList.replace('hover:bg-green-700', 'hover:bg-indigo-700');
-                nextBtn.classList.replace('shadow-green-200', 'shadow-indigo-200');
+                // Styling for Next
+                nextBtn.className = "flex-[3] py-3.5 rounded-xl font-bold text-white bg-indigo-600 shadow-lg shadow-indigo-200 active:scale-95 transition flex items-center justify-center gap-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500";
             }
-            // BUTTON LOGIC END
+            // --- RESPONSIVE BUTTON LOGIC END ---
 
             // Options
             const container = document.getElementById('options-container');
             const mapKeys = ['a', 'b', 'c', 'd'];
-            
+
             container.innerHTML = q.ops.map((optText, idx) => {
-                if(!optText) return '';
+                if (!optText) return '';
                 const key = mapKeys[idx];
-                
+
                 // --- COLOR LOGIC ---
-                let cardClass = "bg-white border-gray-200 hover-active"; 
+                let cardClass = "bg-white border-gray-200 hover-active";
                 let iconClass = "border-gray-300";
                 let textClass = "text-gray-600";
                 let dotInner = "";
 
                 if (isAnswered) {
-                    // Disable Pointer Events
-                    cardClass = "bg-white border-gray-200 cursor-default opacity-90"; 
+                    cardClass = "bg-white border-gray-200 cursor-default opacity-90";
 
                     if (key === correctKey) {
-                        // ALWAYS Green if this is the correct answer
                         cardClass = "status-correct shadow-md transform scale-[1.01]";
                         iconClass = "icon-correct";
                         textClass = "text-green-900 font-bold";
                         dotInner = '<i class="fas fa-check text-[10px]"></i>';
                     } else if (key === selectedKey) {
-                        // Red if this was wrong selected
                         cardClass = "status-wrong shadow-md";
                         iconClass = "icon-wrong";
                         textClass = "text-red-900 font-bold";
                         dotInner = '<i class="fas fa-times text-[10px]"></i>';
                     } else {
-                        // Dim others
                         cardClass = "status-dimmed";
                     }
                 }
@@ -856,15 +947,13 @@
         }
 
         function selectAnswer(key) {
-            // Prevent changing answer if already answered
-            if(userAnswers[currentQuestionIndex]) return;
-
+            if (userAnswers[currentQuestionIndex]) return;
             userAnswers[currentQuestionIndex] = key;
             renderQuestion();
         }
 
         function nextQuestion() {
-            if(currentQuestionIndex < currentQuestions.length - 1) {
+            if (currentQuestionIndex < currentQuestions.length - 1) {
                 currentQuestionIndex++;
                 renderQuestion();
                 document.getElementById('question-scroll-area').scrollTop = 0;
@@ -872,7 +961,7 @@
         }
 
         function prevQuestion() {
-            if(currentQuestionIndex > 0) {
+            if (currentQuestionIndex > 0) {
                 currentQuestionIndex--;
                 renderQuestion();
                 document.getElementById('question-scroll-area').scrollTop = 0;
@@ -885,7 +974,7 @@
 
             currentQuestions.forEach((q, idx) => {
                 const userKey = userAnswers[idx];
-                if(userKey === q.a) correct++;
+                if (userKey === q.a) correct++;
                 else wrong++;
             });
 
@@ -913,4 +1002,5 @@
 
     </script>
 </body>
+
 </html>
