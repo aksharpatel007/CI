@@ -64,7 +64,7 @@
             cursor: pointer;
         }
 
-        /* Hover Effects (Desktop only to prevent sticky hover on mobile) */
+        /* Hover Effects (Desktop only) */
         @media (hover: hover) {
             .hover-active:hover {
                 border-color: #6366f1;
@@ -158,7 +158,7 @@
             </div>
         </div>
 
-        <div id="quiz-screen" class="hidden h-full flex flex-col bg-white md:bg-gray-50 w-full">
+        <div id="quiz-screen" class="hidden h-full flex flex-col bg-white md:bg-gray-50 w-full relative">
 
             <div
                 class="px-6 pt-6 pb-2 bg-white md:rounded-t-xl z-20 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.02)] flex-shrink-0">
@@ -172,8 +172,8 @@
                 </div>
             </div>
 
-            <div class="flex-1 overflow-y-auto px-6 py-4 scroll-smooth" id="question-scroll-area">
-                <div class="slide-in pb-4">
+            <div class="flex-1 overflow-y-auto px-6 py-4 scroll-smooth pb-24" id="question-scroll-area">
+                <div class="slide-in">
                     <h2 id="question-text" class="text-lg md:text-xl font-semibold text-gray-800 leading-relaxed mb-6">
                         Loading Question...
                     </h2>
@@ -187,7 +187,7 @@
             </div>
 
             <div
-                class="bg-white border-t border-gray-100 p-4 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-30 flex-shrink-0 md:rounded-b-xl">
+                class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-30 md:rounded-b-xl">
                 <div class="flex gap-3 max-w-3xl mx-auto">
                     <button onclick="prevQuestion()" id="prev-btn" disabled
                         class="flex-1 py-3.5 rounded-xl font-semibold text-gray-500 bg-gray-100 border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition active:scale-95 flex justify-center items-center gap-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200">
@@ -243,9 +243,6 @@
 
     <script>
         // --- 1. DATA PRE-LOADING (CSV Data) ---
-        // Note: Paste your full CSV data here inside the backticks.
-        // For brevity in the code block, I will use a truncated version, 
-        // but you should use the FULL CSV provided in previous responses.
         const rawCSVData = `Sr,Unit,Q,A,M,Op1,Op2,Op3,Op4
 1,1,"Under which Act, the provision for establishment of Supreme court at Calcutta was made?",a,1,"Regulating Act, 1773","Pitt’s India Act, 1784","Charter Act, 1833","Government of India Act, 1858"
 2,1,Which Act provided for the establishment of Public Service Commission?,c,1,"Government of India Act, 1858","Indian Council Act, 1909","Government of India Act, 1919","Government of India Act, 1935"
